@@ -1,0 +1,82 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model cards {
+  id        Int       @id @default(autoincrement())
+  userId    Int
+  title     String
+  number    BigInt
+  name      String
+  cvc       Int
+  date      DateTime  @db.Date
+  password  String
+  isVirtual Boolean
+  type      cardType?
+  users     users     @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model credentials {
+  id       Int    @id @default(autoincrement())
+  userId   Int
+  title    String
+  url      String
+  userName String
+  password String
+  users    users  @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model documents {
+  id               Int      @id @default(autoincrement())
+  userId           Int
+  type             docType?
+  fullName         String
+  issueDate        DateTime @db.Date
+  expirationDate   DateTime @db.Date
+  number           BigInt   @unique
+  issueInstitution String
+  users            users    @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model notes {
+  id       Int    @id @default(autoincrement())
+  userId   Int
+  title    String @db.VarChar(50)
+  noteText String @db.VarChar(1000)
+  users    users  @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model users {
+  id          Int           @id @default(autoincrement())
+  email       String        @unique
+  password    String
+  cards       cards[]
+  credentials credentials[]
+  documents   documents[]
+  notes       notes[]
+  wifi        wifi[]
+}
+
+model wifi {
+  id       Int    @id @default(autoincrement())
+  userId   Int
+  name     String
+  password String
+  users    users  @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+enum cardType {
+  credit
+  debit
+  creditAndDebit
+}
+
+enum docType {
+  rg
+  cnh
+}
