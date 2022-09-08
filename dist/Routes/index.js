@@ -1,0 +1,20 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+exports.__esModule = true;
+var express_1 = require("express");
+var signupRouter_1 = __importDefault(require("./signupRouter"));
+var loginRouter_1 = __importDefault(require("./loginRouter"));
+var credentialsRouter_1 = __importDefault(require("./credentialsRouter"));
+var cardsRouter_1 = __importDefault(require("./cardsRouter"));
+var wifiRouter_1 = __importDefault(require("./wifiRouter"));
+var safeNotesRouter_1 = __importDefault(require("./safeNotesRouter"));
+var router = (0, express_1.Router)();
+router.use(signupRouter_1["default"]);
+router.use(loginRouter_1["default"]);
+router.use('/credential', credentialsRouter_1["default"]);
+router.use('/card', cardsRouter_1["default"]);
+router.use('/note', safeNotesRouter_1["default"]);
+router.use('/wifi', wifiRouter_1["default"]);
+exports["default"] = router;
