@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.deleteNote = exports.findNote = exports.createNote = void 0;
+exports.deleteNote = exports.findAllNotes = exports.findNote = exports.createNote = void 0;
 function createNote(req, res) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
@@ -53,6 +53,14 @@ function findNote(req, res) {
     });
 }
 exports.findNote = findNote;
+function findAllNotes(req, res) {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            return [2 /*return*/];
+        });
+    });
+}
+exports.findAllNotes = findAllNotes;
 function deleteNote(req, res) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {

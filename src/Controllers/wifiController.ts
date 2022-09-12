@@ -9,6 +9,10 @@ export async function findWifi(req:Request, res:Response) {
     
 }
 
+export async function findAllWifi(req:Request, res:Response) {
+    
+}
+
 export async function deleteWifi(req:Request, res:Response) {
     
 }

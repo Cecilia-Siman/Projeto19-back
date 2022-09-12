@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.deleteWifi = exports.findWifi = exports.createWifi = void 0;
+exports.deleteWifi = exports.findAllWifi = exports.findWifi = exports.createWifi = void 0;
 function createWifi(req, res) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
@@ -53,6 +53,14 @@ function findWifi(req, res) {
     });
 }
 exports.findWifi = findWifi;
+function findAllWifi(req, res) {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            return [2 /*return*/];
+        });
+    });
+}
+exports.findAllWifi = findAllWifi;
 function deleteWifi(req, res) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {

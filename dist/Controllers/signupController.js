@@ -37,9 +37,14 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 exports.signUp = void 0;
+var usersService_1 = require("../Services/usersService");
 function signUp(req, res) {
     return __awaiter(this, void 0, void 0, function () {
+        var user, registered;
         return __generator(this, function (_a) {
+            user = req.body;
+            registered = (0, usersService_1.register)(user);
+            res.send(registered).status(201);
             return [2 /*return*/];
         });
     });

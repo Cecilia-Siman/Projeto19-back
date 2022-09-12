@@ -37,10 +37,19 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 exports.login = void 0;
+var usersService_1 = require("../Services/usersService");
 function login(req, res) {
     return __awaiter(this, void 0, void 0, function () {
+        var token;
         return __generator(this, function (_a) {
-            return [2 /*return*/];
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, (0, usersService_1.userLogin)(req.body)];
+                case 1:
+                    _a.sent();
+                    token = (0, usersService_1.createToken)(req.body.email);
+                    res.send(token).status(200);
+                    return [2 /*return*/];
+            }
         });
     });
 }
