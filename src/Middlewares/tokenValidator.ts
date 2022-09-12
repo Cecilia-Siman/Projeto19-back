@@ -25,7 +25,7 @@ export async function tokenValidator(req:Request,res:Response,next:NextFunction)
             return res.sendStatus(404);
         }
         console.log(userInfo);
-        res.locals.userInfo = userInfo;
+        res.locals.userId = userInfo.id;
 
         next();
     }   catch (error) {

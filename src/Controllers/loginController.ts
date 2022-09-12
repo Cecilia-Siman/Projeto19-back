@@ -1,11 +1,7 @@
 import { Request, Response } from "express";
-import { 
-    userLogin,
-    createToken
-} from "../Services/usersService";
+import { userLogin } from "../Services/usersService";
 
 export async function login(req:Request, res: Response) {
-    await userLogin(req.body);
-    const token = createToken(req.body.email);
+    const token = await userLogin(req.body);
     res.send(token).status(200);
 }

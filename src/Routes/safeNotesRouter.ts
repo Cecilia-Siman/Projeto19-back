@@ -3,16 +3,17 @@ import {
     createNote,
     findNote,
     findAllNotes,
-    deleteNote 
+    deleteNotes 
 } from "../Controllers/safeNotesController"
 import { validateSchema } from "../Middlewares/schemaValidator";
+import { tokenValidator } from "../Middlewares/tokenValidator";
 import noteSchema from "../Schemas/noteSchema";
 
 const noteRouter = Router();
 
-noteRouter.post('/create', validateSchema(noteSchema), createNote);
-noteRouter.get('/find/:id', findNote);
-noteRouter.get('/find',findAllNotes);
-noteRouter.delete('/delete/:id', deleteNote);
+noteRouter.post('/create', tokenValidator, validateSchema(noteSchema), createNote);
+noteRouter.get('/find/:id', tokenValidator, findNote);
+noteRouter.get('/find', tokenValidator, findAllNotes);
+noteRouter.delete('/delete/:id', tokenValidator, deleteNotes);
 
 export default noteRouter;

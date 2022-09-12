@@ -3,11 +3,14 @@ import {
     findUser 
 } from "../Repositories/usersRepository";
 import jwt from 'jsonwebtoken';
+import bcrypt from "bcrypt";
 
 import dotenv from 'dotenv';
+import { users } from "@prisma/client";
+import { tokenValidator } from "../Middlewares/tokenValidator";
 dotenv.config();
 
-export async function register(user) {
+export async function register(user:users) {
     try {
         const userData = await findUser(user.email);
         if (userData){
@@ -15,7 +18,10 @@ export async function register(user) {
             throw {code:"Unauthorized", message:"Email already registered"};
         }
         try {
-            await insertUser(user);
+            const salt = await bcrypt.genSalt();
+            const hashedPassword = await bcrypt.hash(user.password, salt);
+            const newUser = ({email:user.email, password:hashedPassword})
+            await insertUser(newUser);
         } catch (error) {
             console.log(error);
         }
@@ -27,15 +33,17 @@ export async function register(user) {
     
 }
 
-export async function userLogin(user) {
+export async function userLogin(user: users) {
     try{
         const userData = await findUser(user.email);
         if (!userData){
             throw{code:"Not Found" , message: "Email not registered"};
         }
-        if (userData.password !== user.password){
+        if (!bcrypt.compareSync(user.password,userData.password)) {
             throw{code:"Unauthorized" , message: "Password does not correspond"};
         }
+        const token = createToken(user.email);
+        return token;
     }
     catch (error){
         console.log(error);
